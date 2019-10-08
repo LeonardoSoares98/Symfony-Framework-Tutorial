@@ -34,45 +34,62 @@ class Comment
 	 * @ORM\JoinColumn(nullable=false)
 	 */
 	private $article;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isDeleted = false;
 	
 	public function getId()
-	{
-		return $this->id;
-	}
+         	{
+         		return $this->id;
+         	}
 	
 	public function getAuthorName(): ?string
-	{
-		return $this->authorName;
-	}
+         	{
+         		return $this->authorName;
+         	}
 	
 	public function setAuthorName(string $authorName): self
-	{
-		$this->authorName = $authorName;
-		
-		return $this;
-	}
+         	{
+         		$this->authorName = $authorName;
+         		
+         		return $this;
+         	}
 	
 	public function getContent(): ?string
-	{
-		return $this->content;
-	}
+         	{
+         		return $this->content;
+         	}
 	
 	public function setContent(string $content): self
-	{
-		$this->content = $content;
-		
-		return $this;
-	}
+         	{
+         		$this->content = $content;
+         		
+         		return $this;
+         	}
 	
 	public function getArticle(): ?Article
-	{
-		return $this->article;
-	}
+         	{
+         		return $this->article;
+         	}
 	
 	public function setArticle(?Article $article): self
-	{
-		$this->article = $article;
-		
-		return $this;
-	}
+         	{
+         		$this->article = $article;
+         		
+         		return $this;
+         	}
+
+    public function getIsDeleted(): ?bool
+    {
+        return $this->isDeleted;
+    }
+
+    public function setIsDeleted(bool $isDeleted): self
+    {
+        $this->isDeleted = $isDeleted;
+
+        return $this;
+    }
 }
