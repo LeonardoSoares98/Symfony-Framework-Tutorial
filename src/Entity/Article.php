@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
+use App\Repository\ArticleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Doctrine\Common\Collections\Criteria;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
@@ -182,15 +184,8 @@ class Article
 	 */
 	public function getNonDeletedComments(): Collection
 	{
-		$comments = [];
-		
-		foreach ($this->getComments() as $comment) {
-			if (!$comment->getIsDeleted()) {
-				$comments[] = $comment;
-			}
-		}
-		
-		return new ArrayCollection($comments);
+		$criteria = ArticleRepository::createNonDeletedCriteria();
+		return $this->comments->matching($criteria);
 	}
 	
 	public function addComment(Comment $comment): self
